@@ -4,6 +4,13 @@ from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
 from classes import views
+from api.views import (
+	ClassroomListView,
+	ClassroomCreateView,
+	ClassroomDetailView,
+	ClassrommUpdateView,
+	ClassroomDeleteView
+	)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -13,7 +20,15 @@ urlpatterns = [
     path('classrooms/create', views.classroom_create, name='classroom-create'),
     path('classrooms/<int:classroom_id>/update/', views.classroom_update, name='classroom-update'),
     path('classrooms/<int:classroom_id>/delete/', views.classroom_delete, name='classroom-delete'),
+
+
+    path('api/list/', ClassroomListView.as_view(), name='api-list'),
+    path('api/create/', ClassroomCreateView.as_view(), name='api-create'),
+    path('api/<int:classroom_id>/detail/', ClassroomDetailView.as_view(), name='api-detail'),
+    path('api/<int:classroom_id>/update/', ClassrommUpdateView.as_view(), name='api-update'),
+    path('api/<int:classroom_id>/delete/', ClassroomDeleteView.as_view(), name='api-delete'),
 ]
+
 
 if settings.DEBUG:
 	urlpatterns+=static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
